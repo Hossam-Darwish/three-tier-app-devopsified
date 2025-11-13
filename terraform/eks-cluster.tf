@@ -17,12 +17,12 @@ module "eks" {
   eks_managed_node_groups = {
     example = {
       ami_type               = "AL2_x86_64"
-      instance_types         = ["t3.medium"]
+      instance_types         = ["t3.micro"]
       node_security_group_ids = [aws_security_group.all_worker_mgmt.id]
 
 
       min_size     = 2
-      max_size     = 6
+      max_size     = 4
       desired_size = 2
     }
   }
