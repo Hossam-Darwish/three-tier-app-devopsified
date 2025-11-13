@@ -2,7 +2,6 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 21.0"
 
-  # ✅ CORRECT PARAMETERS:
   name               = local.cluster_name
   kubernetes_version = var.kubernetes_version
 
@@ -12,7 +11,7 @@ module "eks" {
   cluster_endpoint_private_access = true
   cluster_endpoint_public_access  = true
 
-  # ✅ STILL NEED basic egress for node communication:
+
   node_security_group_additional_rules = {
     egress_all = {
       description      = "Node all egress"
@@ -34,7 +33,7 @@ module "eks" {
       desired_size = 1
       disk_size    = 20
 
-      # ✅ ATTACH YOUR EXISTING SECURITY GROUP TO NODES:
+      
       additional_security_group_ids = [aws_security_group.all_worker_mgmt.id]
 
       iam_role_additional_policies = {
