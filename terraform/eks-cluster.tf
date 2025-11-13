@@ -4,6 +4,7 @@ module "eks" {
 
   name               = local.cluster_name
   kubernetes_version = var.kubernetes_version
+  enable_cluster_auto_mode = false
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
@@ -25,7 +26,7 @@ module "eks" {
 
   eks_managed_node_groups = {
     example = {
-      ami_type       = "AL2_x86_64"
+      
       instance_types = ["t3.small"]
       
       min_size     = 1
@@ -36,10 +37,6 @@ module "eks" {
       
       additional_security_group_ids = [aws_security_group.all_worker_mgmt.id]
 
-      iam_role_additional_policies = {
-        AmazonEC2ContainerRegistryReadOnly = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-        AmazonSSMManagedInstanceCore       = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-      }
     }
   }
 
