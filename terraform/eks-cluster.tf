@@ -29,9 +29,9 @@ module "eks" {
       instance_types = ["t3.medium"]
       
       min_size     = 1
-      max_size     = 4
+      max_size     = 2
       desired_size = 1
-      disk_size    = 20
+      
 
       
       additional_security_group_ids = [aws_security_group.all_worker_mgmt.id]
