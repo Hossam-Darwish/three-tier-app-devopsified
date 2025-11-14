@@ -24,22 +24,18 @@ module "eks" {
   }
 
   eks_managed_node_groups = {
-    example = {
-      
-      instance_types = ["t4g.small"]
-      ami_type = "AL2_ARM_64"
+  example = {
+    instance_types = ["t3.medium"]
+    ami_type       = "AL2_x86_64"
 
-      
-      min_size     = 1
-      max_size     = 2
-      desired_size = 1
-      
+    min_size     = 1
+    max_size     = 2
+    desired_size = 1
 
-      
-      additional_security_group_ids = [aws_security_group.all_worker_mgmt.id]
-
-    }
+    additional_security_group_ids = [aws_security_group.all_worker_mgmt.id]
   }
+}
+
 
   enable_cluster_creator_admin_permissions = true
   enable_irsa = true
