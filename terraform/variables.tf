@@ -1,13 +1,36 @@
-variable "kubernetes_version" {
-  default     = 1.29
-  description = "kubernetes version"
+variable "region" {
+type = string
+default = "eu-central-1"
+description = "AWS region"
 }
 
-variable "vpc_cidr" {
-  default     = "10.0.0.0/16"
-  description = "default CIDR range of the VPC"
+variable "cidr_block" {
+type = string
+default = "10.10.0.0/16"
 }
-variable "aws_region" {
-  default = "eu-central-1"
-  description = "aws region"
+
+variable "vpc_name" {
+type = string
+default = "eks-vpc" 
+}
+
+variable "tags" {
+type = map(string)
+default = {
+    terraform  = "true"
+    kubernetes = "eks-cluster"
+}
+description = "Tags to apply to all resources"
+}
+
+variable "cluster_name" {
+    type = string
+    default = "eks-cluster"
+
+}
+
+variable "eks_version" {
+type = string
+default = "1.31"
+description = "EKS version"
 }
