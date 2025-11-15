@@ -46,6 +46,7 @@ node_security_group_description = "EKS node group security group - used by nodes
 node_security_group_use_name_prefix = true
 
 subnet_ids = module.eks-vpc.private_subnets
+
 eks_managed_node_groups = {
     group1 = {
     name         = "eks-node-group"
@@ -58,13 +59,4 @@ eks_managed_node_groups = {
     }
 }
 
-fargate_profiles = {
-    profile1 = {
-    selectors = [
-        {
-        namespace = "kube-system"
-    }
-    ]
-    }
-}
 }
