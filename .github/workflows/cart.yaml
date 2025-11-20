@@ -60,7 +60,7 @@ jobs:
 
       - name: Update tag in Helm chart values.yaml
         run: |
-          sed -i 's/^  version: .*/  version: "${{ github.run_id }}"/' helm/values.yaml
+          sed -i 's/^  version: .*/  version: "${{ github.run_id }}"/' EKS/helm/values.yaml
 
       - name: Commit and push changes
         run: |
