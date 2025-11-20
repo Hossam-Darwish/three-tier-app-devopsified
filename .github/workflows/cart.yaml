@@ -38,8 +38,8 @@ jobs:
 
     #  - name: Docker Push
     #    run: |
-    #      docker tag cart ${name}/cart:latest
-    #      docker push ${name}/cart:latest
+    #       docker tag cart ${name}/cart:latest
+    #       docker push ${name}/cart:latest
       
       - name: Docker Push
         run: |
