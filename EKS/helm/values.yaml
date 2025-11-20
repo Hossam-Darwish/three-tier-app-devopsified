@@ -2,7 +2,7 @@
 # Default is docker/robotshop/image:latest
 image:
   repo: hoss1212
-  version: latest
+  version: "19548931076"
   pullPolicy: IfNotPresent
 
 # EUM configuration
