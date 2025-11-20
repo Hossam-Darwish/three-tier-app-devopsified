@@ -193,6 +193,7 @@ app.get('/add/:id/:sku/:qty', (req, res) => {
                 // work out tax
                 cart.tax = calcTax(cart.total);
 
+                
                 // save the new cart
                 saveCart(req.params.id, cart).then((data) => {
                     counter.inc(qty);
