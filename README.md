@@ -162,33 +162,7 @@ After deployment:
 
 - App accessible directly in browser
 
-_____________________________________________________________________________________________________
 
-## Screenshot Gallery
-
-![Terraform Apply](screenshots/terraform-apply.png)
-
-![Helm Installation](screenshots/helm-install.png)
-
-![Pods Running in EKS](screenshots/pods-running.png)
-
-![Application – Home Page](screenshots/app-homepage.png)
-
-![Application – Login/Register](screenshots/login-register-page.png)
-
-![helm-values-updated.png](screenshots/helm-values-updated.png)
-
-![Product Page](screenshots/product-page.png)
-
-![GitHub Actions CI Pipeline](screenshots/github-actions-ci.png)
-
-![Updated DockerHub Image Tag](screenshots/dockerhub-image-tag.png)
-
-![ArgoCD UI](screenshots/argocd-ui.png)
-
-![ArgoCD – Cart Service Deployment](screenshots/argocd-cart-service.png)
-
-![ArgoCD – Application Deployment Overview](screenshots/argocd-deployed-app.png)
 
 ____________________________________________________________________________________________________________________
 
@@ -218,28 +192,47 @@ ___________________________________________________________________________
 
 - ALB ingress & EBS CSI created via Helm
 
-___________________________________________________________________________
 
 
-## Conclusion
+_____________________________________________________________________________________________________
 
-#### This project demonstrates a full production-grade DevOps pipeline, including:
+## Screenshot Gallery
 
-- Infrastructure provisioning
 
-- Containerized workloads
+![Terraform Apply](screenshots/terraform-apply.png)
 
-- CI with GitHub Actions
 
-- GitOps CD with ArgoCD
+![Helm Installation](screenshots/helm-install.png)
 
-- Cloud deployment on EKS
 
-- Helm-managed microservices
+![Pods Running in EKS](screenshots/pods-running.png)
 
-- Real microservices app as workload
 
-- It showcases the essential skills required for Cloud DevOps roles.
+![Application – Home Page](screenshots/app-homepage.png)
+
+
+![Application – Login/Register](screenshots/login-register-page.png)
+
+
+![helm-values-updated.png](screenshots/helm-values-updated.png)
+
+
+![Product Page](screenshots/product-page.png)
+
+
+![GitHub Actions CI Pipeline](screenshots/github-actions-ci.png)
+
+
+![Updated DockerHub Image Tag](screenshots/dockerhub-image-tag.png)
+
+
+![ArgoCD UI](screenshots/argocd-ui.png)
+
+
+![ArgoCD – Cart Service Deployment](screenshots/argocd-cart-service.png)
+
+
+![ArgoCD – Application Deployment Overview](screenshots/argocd-deployed-app.png)
 
 
 
