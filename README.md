@@ -200,39 +200,50 @@ ________________________________________________________________________________
 
 
 ![Terraform Apply](screenshots/terraform-apply.png)
+---------------------------------------------------
 
 
 ![Helm Installation](screenshots/helm-install.png)
+------------------------------------------------------
 
 
 ![Pods Running in EKS](screenshots/pods-running.png)
-
+-----------------------------------------------------
 
 ![Application – Home Page](screenshots/app-homepage.png)
+------------------------------------------------------------
 
 
 ![Application – Login/Register](screenshots/login-register-page.png)
+-----------------------------------------------------------------------
 
 
 ![helm-values-updated.png](screenshots/helm-values-updated.png)
+----------------------------------------------------------------------
 
 
 ![Product Page](screenshots/product-page.png)
+------------------------------------------------------------------
 
 
 ![GitHub Actions CI Pipeline](screenshots/github-actions-ci.png)
+---------------------------------------------------------------------
 
 
 ![Updated DockerHub Image Tag](screenshots/dockerhub-image-tag.png)
+--------------------------------------------------------------------------
 
 
 ![ArgoCD UI](screenshots/argocd-ui.png)
+---------------------------------------------------------------------
 
 
 ![ArgoCD – Cart Service Deployment](screenshots/argocd-cart-service.png)
+------------------------------------------------------------------------------
 
 
 ![ArgoCD – Application Deployment Overview](screenshots/argocd-deployed-app.png)
+-------------------------------------------------------------------------------------
 
 
 
