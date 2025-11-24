@@ -105,6 +105,50 @@ ________________________________________________________________________________
 
 - Helm for packaging and deployment
 
+________________________________________________________________
+
+## Repository Structure
+
+.
+├── .github/                     # GitHub Actions workflows and automation
+├── DCOS/                        
+├── EKS/                         # EKS deployment using Helm and related configurations
+│   ├── 01-prerequisites.md
+│   ├── 02-eks-cluster-setup.md
+│   ├── 03-oidc-IAM.md
+│   ├── 04-alb-configuration.md
+│   ├── 05-ebs-csi-driver.md
+│   └── helm/                    # Helm chart used for deploying the microservices
+│       ├── templates/           # Kubernetes manifests templated by Helm
+│       ├── Chart.yaml           # Helm chart metadata
+│       ├── README.md            # Documentation for the Helm chart
+│       ├── ingress.yaml         # Ingress configuration for the application
+│       └── values.yaml          # Default values for Helm chart deployment
+├── OpenShift/                   
+├── Swarm/                       
+├── cart/                        # Cart microservice source code
+├── catalogue/                   # Catalogue microservice source code
+├── dispatch/                    # Dispatch microservice source code
+├── fluentd/                     
+├── load-gen/                    
+├── mongo/                       # MongoDB service definition
+├── mysql/                       # MySQL service definition
+├── payment/                     # Payment microservice source code
+├── ratings/                     # Ratings microservice source code
+├── screenshots/                 # Screenshots used in the README documentation
+├── shipping/                    # Shipping microservice source code
+├── terraform/                   # Terraform IaC for provisioning AWS EKS cluster
+├── user/                        # User microservice source code
+├── web/                         # Frontend web application
+├── .env                         # Environment variables configuration
+├── .gitignore
+├── LICENSE
+├── README.md
+├── docker-compose-load.yaml     
+├── docker-compose.yaml          
+└── pullbaseimages.sh            
+
+
 _______________________________________________________________
 
 
