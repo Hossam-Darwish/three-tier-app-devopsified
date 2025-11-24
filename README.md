@@ -107,6 +107,7 @@ ________________________________________________________________________________
 
 _______________________________________________________________
 
+
 ## CI Pipeline (GitHub Actions)
 
 ### The workflow performs:
@@ -117,13 +118,15 @@ _______________________________________________________________
 
 - Tag with:
 
-### ${{ github.run_id }}
+#### ${{ github.run_id }}
+
 
 - Push to DockerHub
 
 - Update values.yaml via sed:
 
-### sed -i 's/tag:.*/tag: "'${{ github.run_id }}'"/'
+#### sed -i 's/tag:.*/tag: "'${{ github.run_id }}'"/'
+
 
 - Commit updated Helm tag
 
@@ -171,11 +174,11 @@ ________________________________________________________________________________
 
 ![Application – Home Page](screenshots/app-homepage.png)
 
-![Application – Login/Register](screenshots/login-register page.png)
+![Application – Login/Register](screenshots/login-register-page.png)
 
 ![helm-values-updated.png](screenshots/helm-values-updated.png)
 
-![Product Page](screenshots/product page.png)
+![Product Page](screenshots/product-page.png)
 
 ![GitHub Actions CI Pipeline](screenshots/github-actions-ci.png)
 
@@ -185,7 +188,7 @@ ________________________________________________________________________________
 
 ![ArgoCD – Cart Service Deployment](screenshots/argocd-cart-service.png)
 
-![ArgoCD – Application Deployment Overview](screenshots/argocd showing the deployed app (argocd deployment).png)
+![ArgoCD – Application Deployment Overview](screenshots/argocd-deployed-app.png)
 
 ____________________________________________________________________________________________________________________
 
