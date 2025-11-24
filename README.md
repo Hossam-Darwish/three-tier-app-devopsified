@@ -112,17 +112,17 @@ ________________________________________________________________
 .github/
 DCOS/
 EKS/
-EKS/01-prerequisites.md
-EKS/02-eks-cluster-setup.md
-EKS/03-oidc-IAM.md
-EKS/04-alb-configuration.md
-EKS/05-ebs-csi-driver.md
-EKS/helm/
-EKS/helm/templates/
-EKS/helm/Chart.yaml
-EKS/helm/README.md
-EKS/helm/ingress.yaml
-EKS/helm/values.yaml
+    01-prerequisites.md
+    02-eks-cluster-setup.md
+    03-oidc-IAM.md
+    04-alb-configuration.md
+    05-ebs-csi-driver.md
+    helm/
+        templates/
+        Chart.yaml
+        README.md
+        ingress.yaml
+        values.yaml
 OpenShift/
 Swarm/
 cart/
