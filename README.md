@@ -118,14 +118,14 @@ _______________________________________________________________
 
 - Tag with:
 
-#### ${{ github.run_id }}
+    #### ${{ github.run_id }}
 
 
 - Push to DockerHub
 
 - Update values.yaml via sed:
 
-#### sed -i 's/tag:.*/tag: "'${{ github.run_id }}'"/'
+    #### sed -i 's/tag:.*/tag: "'${{ github.run_id }}'"/'
 
 
 - Commit updated Helm tag
