@@ -110,44 +110,43 @@ ________________________________________________________________
 ## Repository Structure
 
 .
-├── .github/
-├── DCOS/
-├── EKS/
-│   ├── 01-prerequisites.md
-│   ├── 02-eks-cluster-setup.md
-│   ├── 03-oidc-IAM.md
-│   ├── 04-alb-configuration.md
-│   ├── 05-ebs-csi-driver.md
-│   └── helm/
-│       ├── templates/
-│       ├── Chart.yaml
-│       ├── README.md
-│       ├── ingress.yaml
-│       └── values.yaml
-├── OpenShift/
-├── Swarm/
-├── cart/
-├── catalogue/
-├── dispatch/
-├── fluentd/
-├── load-gen/
-├── mongo/
-├── mysql/
-├── payment/
-├── ratings/
-├── screenshots/
-├── shipping/
-├── terraform/
-├── user/
-├── web/
-├── .env
-├── .gitignore
-├── LICENSE
-├── README.md
-├── docker-compose-load.yaml
-├── docker-compose.yaml
-└── pullbaseimages.sh
-
+.github/
+DCOS/
+EKS/
+EKS/01-prerequisites.md
+EKS/02-eks-cluster-setup.md
+EKS/03-oidc-IAM.md
+EKS/04-alb-configuration.md
+EKS/05-ebs-csi-driver.md
+EKS/helm/
+EKS/helm/templates/
+EKS/helm/Chart.yaml
+EKS/helm/README.md
+EKS/helm/ingress.yaml
+EKS/helm/values.yaml
+OpenShift/
+Swarm/
+cart/
+catalogue/
+dispatch/
+fluentd/
+load-gen/
+mongo/
+mysql/
+payment/
+ratings/
+screenshots/
+shipping/
+terraform/
+user/
+web/
+.env
+.gitignore
+LICENSE
+README.md
+docker-compose-load.yaml
+docker-compose.yaml
+pullbaseimages.sh
 
 _______________________________________________________________
 
