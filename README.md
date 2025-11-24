@@ -109,9 +109,9 @@ ________________________________________________________________
 
 ## Repository Structure
 
-.
+ .
 ├── .github/                     # GitHub Actions workflows and automation
-├── DCOS/                        
+├── DCOS/                        # DC/OS deployment manifests (optional platform support)
 ├── EKS/                         # EKS deployment using Helm and related configurations
 │   ├── 01-prerequisites.md
 │   ├── 02-eks-cluster-setup.md
@@ -124,13 +124,13 @@ ________________________________________________________________
 │       ├── README.md            # Documentation for the Helm chart
 │       ├── ingress.yaml         # Ingress configuration for the application
 │       └── values.yaml          # Default values for Helm chart deployment
-├── OpenShift/                   
-├── Swarm/                       
+├── OpenShift/                   # OpenShift deployment manifests (optional platform support)
+├── Swarm/                       # Docker Swarm deployment manifests
 ├── cart/                        # Cart microservice source code
 ├── catalogue/                   # Catalogue microservice source code
 ├── dispatch/                    # Dispatch microservice source code
-├── fluentd/                     
-├── load-gen/                    
+├── fluentd/                     # Fluentd logging configuration
+├── load-gen/                    # Load generator for performance testing
 ├── mongo/                       # MongoDB service definition
 ├── mysql/                       # MySQL service definition
 ├── payment/                     # Payment microservice source code
@@ -144,9 +144,10 @@ ________________________________________________________________
 ├── .gitignore
 ├── LICENSE
 ├── README.md
-├── docker-compose-load.yaml     
-├── docker-compose.yaml          
-└── pullbaseimages.sh            
+├── docker-compose-load.yaml     # Load test Docker Compose setup
+├── docker-compose.yaml          # Local multi-service Docker Compose setup
+└── pullbaseimages.sh            # Script to pull required base Docker images
+         
 
 
 _______________________________________________________________
