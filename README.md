@@ -1,128 +1,247 @@
-# Sample Microservice Application
+# Three-Tier App DevOpsified
 
-Stan's Robot Shop is a sample microservice application you can use as a sandbox to test and learn containerised application orchestration and monitoring techniques. It is not intended to be a comprehensive reference example of how to write a microservices application, although you will better understand some of those concepts by playing with Stan's Robot Shop. To be clear, the error handling is patchy and there is not any security built into the application.
+## End-to-End DevOps Pipeline on AWS EKS using Terraform, Docker, GitHub Actions & ArgoCD
 
-You can get more detailed information from my [blog post](https://www.instana.com/blog/stans-robot-shop-sample-microservice-application/) about this sample microservice application.
+### Purpose: 
 
-This sample microservice application has been built using these technologies:
-- NodeJS ([Express](http://expressjs.com/))
-- Java ([Spring Boot](https://spring.io/))
-- Python ([Flask](http://flask.pocoo.org))
-- Golang
-- PHP (Apache)
-- MongoDB
-- Redis
-- MySQL ([Maxmind](http://www.maxmind.com) data)
-- RabbitMQ
-- Nginx
-- AngularJS (1.x)
+To demonstrate an end-to-end DevOps pipeline using Infrastructure as Code (Terraform), Continuous Integration (GitHub Actions), Containerization (Docker), Helm packaging, and Continuous Delivery via GitOps (ArgoCD) on AWS EKS.
 
-The various services in the sample application already include all required Instana components installed and configured. The Instana components provide automatic instrumentation for complete end to end [tracing](https://docs.instana.io/core_concepts/tracing/), as well as complete visibility into time series metrics for all the technologies.
+_______________________________________________________________________________________________
 
-To see the application performance results in the Instana dashboard, you will first need an Instana account. Don't worry a [trial account](https://instana.com/trial?utm_source=github&utm_medium=robot_shop) is free.
 
-## Build from Source
-To optionally build from source (you will need a newish version of Docker to do this) use Docker Compose. Optionally edit the `.env` file to specify an alternative image registry and version tag; see the official [documentation](https://docs.docker.com/compose/env-file/) for more information.
+### Architecture Overview
 
-To download the tracing module for Nginx, it needs a valid Instana agent key. Set this in the environment before starting the build.
+This project deploys the Robot Shop microservices application on an EKS cluster using a fully automated DevOps pipeline:
 
-```shell
-$ export INSTANA_AGENT_KEY="<your agent key>"
-```
+Developer Push → GitHub Actions CI → DockerHub → ArgoCD → AWS EKS
 
-Now build all the images.
+______________________________________________________________________________________________
 
-```shell
-$ docker-compose build
-```
 
-If you modified the `.env` file and changed the image registry, you need to push the images to that registry
+### High-Level Architecture
 
-```shell
-$ docker-compose push
-```
+                         ┌───────────────────────┐
+                         │     GitHub Repo       │
+                         │  (Application + IaC)  │
+                         └───────────┬───────────┘
+                                     │ Commit / PR
+                                     ▼
+                         ┌────────────────────────┐
+                         │   GitHub Actions CI    │
+                         │ - Build & Test         │
+                         │ - Dockerize Service    │
+                         │ - Push Image Tag       │
+                         │   (github.run_id)      │
+                         └───────────┬────────────┘
+                                     │ Updated Helm values.yaml
+                                     ▼
+                         ┌────────────────────────┐
+                         │       ArgoCD           │
+                         │ GitOps Continuous CD   │
+                         └───────────┬────────────┘
+                                     │ Sync to Cluster
+                                     ▼
+                    ┌──────────────────────────────────┐
+                    │              AWS EKS             │
+                    │ - 3 Worker Nodes (Managed)       │
+                    │ - ALB Ingress Controller         │
+                    │ - EBS CSI Driver                 │
+                    │ - Helm-Deployed Microservices    │
+                    └──────────────────────────────────┘
+___________________________________________________________________________________________
 
-## Run Locally
-You can run it locally for testing.
 
-If you did not build from source, don't worry all the images are on Docker Hub. Just pull down those images first using:
+## Features Implemented
 
-```shell
-$ docker-compose pull
-```
+### Infrastructure (IaC)
 
-Fire up Stan's Robot Shop with:
+- AWS EKS cluster (Terraform)
 
-```shell
-$ docker-compose up
-```
+- Managed Node Group
 
-If you want to fire up some load as well:
+- OIDC Provider + IRSA
 
-```shell
-$ docker-compose -f docker-compose.yaml -f docker-compose-load.yaml up
-```
+- AWS ALB Ingress Controller (via Helm)
 
-If you are running it locally on a Linux host you can also run the Instana [agent](https://docs.instana.io/quick_start/agent_setup/container/docker/) locally, unfortunately the agent is currently not supported on Mac.
+- AWS EBS CSI Driver (via Helm)
 
-There is also only limited support on ARM architectures at the moment.
+- IAM roles, policies, VPC, subnets, security groups
 
-## Marathon / DCOS
+- Automatic Ingress creation with ALB
 
-The manifests for robotshop are in the *DCOS/* directory. These manifests were built using a fresh install of DCOS 1.11.0. They should work on a vanilla HA or single instance install.
+### Application (Workload)
 
-You may install Instana via the DCOS package manager, instructions are here: https://github.com/dcos/examples/tree/master/instana-agent/1.9
+#### Robot Shop microservices deployed via Helm chart:
 
-## Kubernetes
-You can run Kubernetes locally using [minikube](https://github.com/kubernetes/minikube) or on one of the many cloud providers.
+- Cart service modified for CI/CD demonstration
 
-The Docker container images are all available on [Docker Hub](https://hub.docker.com/u/robotshop/).
+- Multi-language microservices (Node, Python, Java, Go, etc.)
 
-Install Stan's Robot Shop to your Kubernetes cluster using the [Helm](K8s/helm/README.md) chart.
+### CI – GitHub Actions
 
-To deploy the Instana agent to Kubernetes, just use the [helm](https://github.com/instana/helm-charts) chart.
+- Build
 
-## Accessing the Store
-If you are running the store locally via *docker-compose up* then, the store front is available on localhost port 8080 [http://localhost:8080](http://localhost:8080/)
+- Test
 
-If you are running the store on Kubernetes via minikube then, find the IP address of Minikube and the Node Port of the web service.
+- Dockerize Cart microservice
 
-```shell
-$ minikube ip
-$ kubectl get svc web
-```
+- Push to DockerHub
 
-If you are using a cloud Kubernetes / Openshift / Mesosphere then it will be available on the load balancer of that system.
+- Auto-update Helm chart image tag (github.run_id)
 
-## Load Generation
-A separate load generation utility is provided in the `load-gen` directory. This is not automatically run when the application is started. The load generator is built with Python and [Locust](https://locust.io). The `build.sh` script builds the Docker image, optionally taking *push* as the first argument to also push the image to the registry. The registry and tag settings are loaded from the `.env` file in the parent directory. The script `load-gen.sh` runs the image, it takes a number of command line arguments. You could run the container inside an orchestration system (K8s) as well if you want to, an example descriptor is provided in K8s directory. For End-user Monitoring ,load is not automatically generated but by navigating through the Robotshop from the browser .For more details see the [README](load-gen/README.md) in the load-gen directory.  
+### CD – ArgoCD
 
-## Website Monitoring / End-User Monitoring
+- Automatic sync (GitOps)
 
-### Docker Compose
+- Real-time updates when Helm values.yaml changes
 
-To enable Website Monioring / End-User Monitoring (EUM) see the official [documentation](https://docs.instana.io/website_monitoring/) for how to create a configuration. There is no need to inject the JavaScript fragment into the page, this will be handled automatically. Just make a note of the unique key and set the environment variable `INSTANA_EUM_KEY` and `INSTANA_EUM_REPORTING_URL` for the web image within `docker-compose.yaml`.
+- Deployed from GitHub repo into EKS
 
-### Kubernetes
+### Other Tools
 
-The Helm chart for installing Stan's Robot Shop supports setting the key and endpoint url required for website monitoring, see the [README](K8s/helm/README.md).
+- DockerHub for public container registry
 
-## Prometheus
+- AWS Load Balancer Controller for external access
 
-The cart and payment services both have Prometheus metric endpoints. These are accessible on `/metrics`. The cart service provides:
+- Helm for packaging and deployment
 
-* Counter of the number of items added to the cart
+_______________________________________________________________
 
-The payment services provides:
+## CI Pipeline (GitHub Actions)
 
-* Counter of the number of items perchased
-* Histogram of the total number of items in each cart
-* Histogram of the total value of each cart
+### The workflow performs:
 
-To test the metrics use:
+- Checkout code
 
-```shell
-$ curl http://<host>:8080/api/cart/metrics
-$ curl http://<host>:8080/api/payment/metrics
-```
+- Build Docker image
+
+- Tag with:
+
+### ${{ github.run_id }}
+
+- Push to DockerHub
+
+- Update values.yaml via sed:
+
+### sed -i 's/tag:.*/tag: "'${{ github.run_id }}'"/'
+
+- Commit updated Helm tag
+
+- ArgoCD auto-sync deploys it immediately
+
+_________________________________________________________________________________
+
+
+## CD Pipeline (ArgoCD)
+
+### ArgoCD is configured with:
+
+- Automatic Sync
+
+- Self-heal enabled
+
+- Monitored Helm chart path in GitHub repo
+
+- Deploys directly to EKS in eu-central-1
+
+ArgoCD automatically detects changes pushed by GitHub Actions and updates the Cart microservice.
+
+_____________________________________________________________________________________________________________
+
+## Application Access
+
+
+The AWS ALB Ingress Controller exposes the frontend via a public ALB.
+
+After deployment:
+
+- Retrieve ALB DNS name
+
+- App accessible directly in browser
+
+_____________________________________________________________________________________________________
+
+## Screenshot Gallery
+
+![Terraform Apply](screenshots/terraform-apply.png)
+
+![Helm Installation](screenshots/helm-install.png)
+
+![Pods Running in EKS](screenshots/pods-running.png)
+
+![Application – Home Page](screenshots/app-homepage.png)
+
+![Application – Login/Register](screenshots/login-register page.png)
+
+![helm-values-updated.png](screenshots/helm-values-updated.png)
+
+![Product Page](screenshots/product page.png)
+
+![GitHub Actions CI Pipeline](screenshots/github-actions-ci.png)
+
+![Updated DockerHub Image Tag](screenshots/dockerhub-image-tag.png)
+
+![ArgoCD UI](screenshots/argocd-ui.png)
+
+![ArgoCD – Cart Service Deployment](screenshots/argocd-cart-service.png)
+
+![ArgoCD – Application Deployment Overview](screenshots/argocd showing the deployed app (argocd deployment).png)
+
+____________________________________________________________________________________________________________________
+
+
+
+## Service Used for CI/CD Demo
+
+This project uses Cart microservice as the full CI/CD example:
+
+- Build
+
+- Test
+
+- Dockerize
+
+- Push
+
+- Auto-deploy via ArgoCD
+
+___________________________________________________________________________
+
+## AWS Deployment
+
+- Region: eu-central-1
+
+- EKS cluster with managed node group
+
+- ALB ingress & EBS CSI created via Helm
+
+___________________________________________________________________________
+
+
+## Conclusion
+
+#### This project demonstrates a full production-grade DevOps pipeline, including:
+
+- Infrastructure provisioning
+
+- Containerized workloads
+
+- CI with GitHub Actions
+
+- GitOps CD with ArgoCD
+
+- Cloud deployment on EKS
+
+- Helm-managed microservices
+
+- Real microservices app as workload
+
+- It showcases the essential skills required for Cloud DevOps roles.
+
+
+
+
+
+
+
 
